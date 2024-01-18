@@ -1,11 +1,41 @@
 // This is your Prisma schema file,
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
 generator client {
   provider = "prisma-client-js"
 }
 
-datasource db {
-  provider = "sqlite"
-  url      = env("DATABASE_URL")
+model User {
+  id         String   @id @default(cuid())
+  username   String   @unique
+  // Potentially extensible to passwords in the future
+}
+
+model Post {
+  id        String   @id @default(cuid())
+  uid       String
+  user      User     @relation(fields: [uid], references: [id])
+  header    String
+  content   String
+  reactions Reactions[]
+}
+
+model Reaction {
+  id         String   @id @default(cuid())
+  post       Post     @relation(fields: [postId], references: [id])
+  postId     String
+  username   String
+  reactionEmoji ReactionEmoji @relation(fields: [reactionEmojiId], references: [id])
+  reactionEmojiId String
+}
+
+model ReactionEmoji {
+  id         String   @id @default(cuid())
+  typeDetails String
+  reactions  Reaction[]
 }
