@@ -1,0 +1,40 @@
+18_01_24 11:18
+
+- user flow
+    - login with just username
+    - there's only one post that the user can react to (can users create new posts? maybe not for now)
+    - react to the post: 
+        - change previous Reactions
+        - undo reaction i.e. go to no reaction
+        - view latest reactions 
+        - view reactions count
+
+- Data
+    - User Data 
+        - username (PK)
+        - (extensible to passwords)
+    - Posts
+        - post id (PK)
+        - uid (FK)
+        - Header
+        - Content
+        - reactions count
+        - recent reactions (not sure how to implement this, but probably a queue like data structure... should have default implementations)
+    - Reactions
+        - reaction_id
+        - post_id (index on this column for faster search) (FK)
+        - username (FK)
+        - reaction_emoji_id (FK)
+    - Reaction_emojis (so that we can change the type of reactions available in the future with ease)
+        - reaction_type_id (PK)
+        - reaction_type_details (maybe unicode of the emoji)
+
+- When the page loads
+    - pull in relevant posts for user
+        - not a relevant problem since only one post
+    - async for every post
+        - pull in post details
+        - pull in current user's reaction status
+
+- When the user modifies reaction
+    - simple async post request 
