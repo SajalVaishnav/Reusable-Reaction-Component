@@ -38,3 +38,26 @@
 
 - When the user modifies reaction
     - simple async post request 
+
+
+20_01_24 
+
+- Past progress:
+    - init next app
+    - init prisma and define schema
+
+- Schema changes
+    - autoincrement vs cuid
+    - maybe it makes sense for posts and users and reactions to have autoincrement
+    - would imporve readability and no distributed env so collisisons are not an issue
+
+- Connect to supabase
+    - created an account
+    - configured the env file to connect to postgres db
+    - going to seed some data and then test
+
+- Storing emojis 
+    - they're unicode characters
+    - it makes sense for it to have its own table for personalization, adding new reactions etc.
+    - hypothesis: if I just write them as unicode strings like (U&'\+01F913') it should work
+    - https://towardsdatascience.com/emojis-in-your-data-9a5513ead2dd
