@@ -1,5 +1,5 @@
 import { PrismaClient, Prisma } from '@prisma/client';
-
+import { User, ReactionEmoji } from '@prisma/client';
 const prisma = new PrismaClient();
 
 async function main() {
@@ -19,12 +19,24 @@ async function main() {
         { typeDetails: '😅' },
     ] satisfies Prisma.ReactionEmojiCreateInput[]
 
-    await prisma.post.deleteMany({})
-    await prisma.user.deleteMany({})
-    await prisma.reaction.deleteMany({})
-    await prisma.reactionEmoji.deleteMany({})
+    // Deletes all existing entries
+    const tablenames = await prisma.$queryRaw<
+      Array<{ tablename: string }>
+    >`SELECT tablename FROM pg_tables WHERE schemaname='public'`
 
-    let seededUsers: { id: number; username: string; }[] = [];
+    const tables = tablenames
+      .map(({ tablename }) => tablename)
+      .filter((name) => name !== '_prisma_migrations')
+      .map((name) => `"public"."${name}"`)
+      .join(', ')
+
+    try {
+      await prisma.$executeRawUnsafe(`TRUNCATE TABLE ${tables} CASCADE;`)
+    } catch (error) {
+      console.log({ error })
+    }
+
+    let seededUsers: User[] = [];
     for (const u of userData) {
         const user = await prisma.user.create({
           data: u,
@@ -33,7 +45,7 @@ async function main() {
         seededUsers.push(user);
     }
 
-    let seededReactionEmojis: { id: number; typeDetails: string; }[] = [];
+    let seededReactionEmojis: ReactionEmoji[] = [];
     for (const r of reactionEmojis) {
         const reaction = await prisma.reactionEmoji.create({
           data: r,
@@ -45,8 +57,8 @@ async function main() {
     // Seed Post
     const mockPost = await prisma.post.create({
         data: {
-        uid: seededUsers[0].id, 
-        header: 'Header',
+        uId: seededUsers[0].id, 
+        title: 'Title',
         content: 'Interesting content',
         },
     });
