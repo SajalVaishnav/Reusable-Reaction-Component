@@ -12,33 +12,36 @@ generator client {
 }
 
 model User {
-  id         String   @id @default(autoincrement())
+  id         Int   @id @default(autoincrement())
   username   String   @unique
-  // Potentially extensible to passwords in the future
+  posts Post[]
+  reactions Reaction[]
 }
 
 model Post {
-  id        String   @id @default(autoincrement())
-  uid       String
-  user      User     @relation(fields: [uid], references: [id])
-  header    String
+  id        Int   @id @default(autoincrement())
+  uId       Int
+  user      User     @relation(fields: [uId], references: [id])
+  title    String
   content   String
-  reactions Reactions[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  reactions Reaction[]
 }
 
 model Reaction {
-  id         String   @id @default(autoincrement())
+  id         Int      @id @default(autoincrement())
   post       Post     @relation(fields: [postId], references: [id])
-  postId     String
-  username   String
+  postId     Int
+  uId        Int
+  user       User     @relation(fields: [uId], references: [id])
   reactionEmoji ReactionEmoji @relation(fields: [reactionEmojiId], references: [id])
-  reactionEmojiId String
+  reactionEmojiId Int
+  @@unique([uId, postId])
 }
 
 model ReactionEmoji {
-  id         String   @id @default(autoincrement())
-  // should be read/write as a unicode string, TODO: enfore checks for unicode postgres format
+  id         Int   @id @default(autoincrement())
   typeDetails String
-  // future possible optimization, to allow more personalized reactions, or id popular reactions
-  // reactions  Reaction[]
+  reactions  Reaction[]
 }
