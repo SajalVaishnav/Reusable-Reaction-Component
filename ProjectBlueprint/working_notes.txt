@@ -61,3 +61,9 @@
     - it makes sense for it to have its own table for personalization, adding new reactions etc.
     - hypothesis: if I just write them as unicode strings like (U&'\+01F913') it should work
     - https://towardsdatascience.com/emojis-in-your-data-9a5513ead2dd
+
+21_01_24
+- db_utils
+    - get posts
+    - get reactions for a post
+    - create user
