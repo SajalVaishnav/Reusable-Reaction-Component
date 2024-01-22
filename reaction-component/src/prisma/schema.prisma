@@ -37,6 +37,7 @@ model Reaction {
   user       User     @relation(fields: [uId], references: [id])
   reactionEmoji ReactionEmoji @relation(fields: [reactionEmojiId], references: [id])
   reactionEmojiId Int
+  createdAt DateTime @default(now())
   @@unique([uId, postId])
 }
 

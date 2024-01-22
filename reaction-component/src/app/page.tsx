@@ -1,19 +1,17 @@
 import React from 'react';
-import { getAllPosts } from '@/prisma/db_utils';
+import { getAllPosts, getReactions } from '@/prisma/db_utils';
 import { PrismaClient } from '@prisma/client';
 
 export default async function Home() {
   const prisma = new PrismaClient();
   const posts = await getAllPosts(prisma);
-
+  const reactions = await getReactions(posts[0].id, 3, prisma);
   return (
     <div>
-      <h1>Posts</h1>
+      <h1>Reactions</h1>
       <ul>
-        {posts.map((post) => (
-          <li key={post.id}>
-            <h2>{post.title}+{post.content}+{post.reactions[0].reactionEmoji.typeDetails}</h2>
-          </li>
+        {reactions.map((reaction, index) => (
+            <li key={index}>{reaction.user.username}{reaction.reactionEmoji.typeDetails}</li>
         ))}
       </ul>
     </div>
