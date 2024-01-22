@@ -67,3 +67,23 @@
     - get posts
     - get reactions for a post
     - create user
+
+22_01_24
+- db_utils  
+    - made it more efficient
+        - load only count of reactions with a post
+        - separate function to load reactions
+            - needed createdAt in the schema
+    - added explicit return types
+
+- okay now ui 
+    - pages
+        - just the root
+    - components
+        - reactions modal
+            - title-ribbon
+            - list of user-reaction
+        - post
+            - bottom-ribbon
+            - title-ribbon
+            - content 
