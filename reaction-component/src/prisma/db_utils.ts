@@ -37,7 +37,7 @@ export async function getAllPosts(prisma: PrismaClient): Promise<PostWithUserAnd
 }
 
 // given postId and reactionCount load the 'reactionCount' most recent reactions 
-export async function getReactions(postId: number, reactionCount: number, prisma: PrismaClient): Promise<ReactionWithUserAndReactionEmoji[]> {
+export async function getReactions(postId: number, prisma: PrismaClient): Promise<ReactionWithUserAndReactionEmoji[]> {
     try {
         const reactions = await prisma.reaction.findMany({
             where: { postId },
@@ -51,8 +51,7 @@ export async function getReactions(postId: number, reactionCount: number, prisma
             },
             orderBy: {
               createdAt: 'desc',
-            },
-            take: reactionCount,
+            }
         });
         // map to ReactionWithUserAndReactionEmoji
         const reactionsWithUserAndReactionEmoji = reactions.map((reaction) => ({

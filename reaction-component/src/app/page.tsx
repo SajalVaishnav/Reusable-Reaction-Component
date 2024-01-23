@@ -15,9 +15,9 @@ interface HomeProps {
 }
 
 export default async function Home() {
-  const prism = new PrismaClient();
-  const posts = await getAllPosts(prism);
-  const reactions = await getReactions(posts[0].id, 3, prism);
+  const prisma = new PrismaClient();
+  const posts = await getAllPosts(prisma);
+  const reactions = await getReactions(posts[0].id, prisma);
 
   return (
     <div>
