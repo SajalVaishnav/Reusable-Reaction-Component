@@ -60,8 +60,8 @@ async function main() {
     const mockPost = await prisma.post.create({
         data: {
         uId: seededUsers[0].id, 
-        title: 'Title',
-        content: 'Interesting content',
+        title: 'This is the Discussion Title',
+        content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod lor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut re et doshu dgna aliqua. Ut enim ad minim veniam, quis...',
         },
     });
 

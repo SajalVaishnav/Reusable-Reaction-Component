@@ -28,7 +28,7 @@ export default async function Home() {
           title={post.title}
           content={post.content}
           author={post.user.username}
-          createdTime={post.createdAt.toDateString()}
+          createdTime={post.createdAt}
         />
       ))}
 

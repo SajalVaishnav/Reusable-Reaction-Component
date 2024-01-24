@@ -1,20 +1,23 @@
 // components/BottomRibbon.tsx
 import React from 'react';
-
+import UsernameAndPostedTime from './bottom_ribbon/UsernameAndPostedTime';
 interface BottomRibbonProps {
   username: string;
-  createdAt: string; // Assuming createdAt is a string, adjust accordingly
+  createdAt: Date; // Assuming createdAt is a string, adjust accordingly
 }
 
 const BottomRibbon: React.FC<BottomRibbonProps> = ({ username, createdAt }) => {
+  const bottomRibbonStyles: React.CSSProperties = {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    alignSelf: 'stretch',
+    fontFeatureSettings: 'ss11 on, cv09 on, liga off, calt off'
+  };
+
   return (
-    <div className="flex items-center justify-between">
-      <div className="flex items-center space-x-2">
-        <span>{username}</span>
-      </div>
-      <div className="flex items-center space-x-2">
-        <span>{createdAt}</span>
-      </div>
+    <div style={bottomRibbonStyles}>
+      <UsernameAndPostedTime username={username} createdAt={createdAt} />
     </div>
   );
 };

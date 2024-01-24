@@ -1,6 +1,5 @@
 // db_utils.ts
 import { Post, Reaction, User, ReactionEmoji } from '@prisma/client';
-import React from 'react';
 
 export type PostWithUserAndReactionCount = Post & {
     user: { username: string };
