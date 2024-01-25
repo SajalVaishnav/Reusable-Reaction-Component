@@ -15,14 +15,15 @@ const ReactionComponent: React.FC<ReactionComponentProps> = ({ postId, userId })
     const [reactionCount, setReactionCount] = useState<number>(0);
     const [isLiked, setIsLiked] = useState<boolean>(false);
     const [reactionEmojis, setReactionEmojis] = useState<ReactionEmoji[]>([]); 
-    const [isLoading, setIsLoading] = useState(true);
+    const [isLoading, setIsLoading] = useState<boolean>(true);
     const [error, setError] = useState<Error | any>(null);
 
 
 
     useEffect(() => {
         const fetchState = async () => {
-            setIsLoading(true);
+            console.log('fetching state');
+            setIsLoading(current => !current);
             try {
                 const likeCount = await getReactionCount(postId);
                 const isLikedFetched = await hasUserReacted(postId, userId); 
@@ -33,12 +34,12 @@ const ReactionComponent: React.FC<ReactionComponentProps> = ({ postId, userId })
             } catch (error: Error | any) {
                 setError(error);
             } finally {
-                setIsLoading(false);
+                setIsLoading(current => !current);
             }
         };
 
         fetchState();
-    }, [postId, userId]);
+    }, [userId, postId]);
 
     const handleLikeClick = async (reactionEmojiId: number = -1) => {
         try {
@@ -52,7 +53,7 @@ const ReactionComponent: React.FC<ReactionComponentProps> = ({ postId, userId })
                 console.log('deleting Reaction ', updatedLikeCount);
             }
 
-            setIsLiked(!isLiked);
+            setIsLiked(current => !current);
         } catch (error) {
             console.error('Error updating like count:', error);
         }
