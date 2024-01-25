@@ -87,3 +87,20 @@
             - bottom-ribbon
             - title-ribbon
             - content 
+
+25_01_24
+
+- code hygiene
+    - uId -> userId
+    - db_utils
+        - server actions
+        - break down to osts, comments, etc.
+    - prismaclient instances
+        - use singleton
+    - naming
+        - popoever button
+        - why "componennt" in ReactionComponent
+    - use of useEffect in ReactionComponent
+    - how to set state for a toggling boolean
+- cache reactions count inside the opst table
+- practice CSS

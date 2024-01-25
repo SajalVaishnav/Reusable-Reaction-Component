@@ -1,0 +1,48 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+datasource db {
+  provider          = "postgresql"
+  url               = env("DATABASE_URL")
+  directUrl         = env("DIRECT_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id         Int   @id @default(autoincrement())
+  username   String   @unique
+  posts Post[]
+  reactions Reaction[]
+}
+
+model Post {
+  id        Int   @id @default(autoincrement())
+  userId    Int 
+  user      User     @relation(fields: [userId], references: [id])
+  title    String
+  content   String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  reactions Reaction[]
+}
+
+model Reaction {
+  id         Int      @id @default(autoincrement())
+  post       Post     @relation(fields: [postId], references: [id])
+  postId     Int
+  userId     Int 
+  user       User     @relation(fields: [userId], references: [id])
+  reactionEmoji ReactionEmoji @relation(fields: [reactionEmojiId], references: [id])
+  reactionEmojiId Int
+  createdAt DateTime @default(now())
+  @@unique([userId, postId])
+}
+
+model ReactionEmoji {
+  id         Int   @id @default(autoincrement())
+  emojiString String
+  reactions  Reaction[]
+}
