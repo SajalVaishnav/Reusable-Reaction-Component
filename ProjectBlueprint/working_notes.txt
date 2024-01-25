@@ -100,8 +100,9 @@
     - naming
         - popoever button
         - why "componennt" in ReactionComponent
+            - not sure how to name it better
     - use of useEffect in ReactionComponent
         - removing the dependancy array makes the useFect run too many times... why though
-    - how to set state for a toggling boolean
+    -DONE how to set state for a toggling boolean
 - cache reactions count inside the opst table
 - practice CSS

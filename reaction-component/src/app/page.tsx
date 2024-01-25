@@ -2,7 +2,7 @@ import React from 'react';
 import Post from './components/Post';
 import { getAllPosts } from '../../prisma/db_utils';
 import ReactionModal from './components/ReactionModal';
-import PopoverButton from './components/reaction_component/PopoverButton';
+import PopoverButton from './components/reaction/LikeButton';
 
 export default async function Home() {
   const posts = await getAllPosts();

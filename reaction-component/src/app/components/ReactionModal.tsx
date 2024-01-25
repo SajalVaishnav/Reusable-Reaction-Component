@@ -3,6 +3,7 @@ import { getReactions } from '../../../prisma/db_utils';
 import { Cross2Icon } from '@radix-ui/react-icons'; 
 import Modal from 'react-modal';
 import { formatDate } from '../utils/timestampDisplay';
+import { ReactionWithUserAndReactionEmoji } from '../types';
 
 interface ListEntryProps {
   reactionString: string;
@@ -62,13 +63,22 @@ interface ReactionModalProps {
 }
 
 const ReactionModal: React.FC<ReactionModalProps> = ({ postId, isOpen, onRequestClose }) => {
-  const [reactions, setReactions] = useState<any[]>([]); // Replace any with your actual reaction type
+  const [reactions, setReactions] = useState<ReactionWithUserAndReactionEmoji[]>([]); // Replace any with your actual reaction type
+  const [loading, setLoading] = useState<boolean>(false);
+  const [error, setError] = useState<Error | any>(null);
 
   useEffect(() => {
     if (isOpen) {
       const fetchReactions = async () => {
-        const fetchedReactions = await getReactions(postId);
-        setReactions(fetchedReactions);
+        setLoading(current => !current);
+        try {
+          const fetchedReactions = await getReactions(postId);
+          setReactions(fetchedReactions);
+        } catch (error) {
+          setError(error);
+        } finally {
+          setLoading(current => !current);
+        }
       };
 
       fetchReactions();
@@ -129,6 +139,8 @@ const ReactionModal: React.FC<ReactionModalProps> = ({ postId, isOpen, onRequest
 
   return (
     <Modal isOpen={isOpen} onRequestClose={onRequestClose} style={{ content: modalContainerStyles }}>
+      {error && <div>Error: {error.message}</div>} {/* Display error message if error exists */}
+      {loading && <div>Loading...</div>} {/* Display loading message if loading is true */}
       <div style={headerContainerStyles}>
         <div style={titleTextStyles}>
           {reactions.length} Likes
@@ -139,7 +151,7 @@ const ReactionModal: React.FC<ReactionModalProps> = ({ postId, isOpen, onRequest
       </div>
       <div style={scrollableListStyles}>
         {reactions.map((reaction, index) => (
-          <ListEntry key={index} reactionString={reaction.reactionEmoji.typeDetails} username={reaction.user.username} time={reaction.createdAt} />
+          <ListEntry key={index} reactionString={reaction.reactionEmoji.emojiString} username={reaction.user.username} time={reaction.createdAt} />
         ))}
       </div>
     </Modal>

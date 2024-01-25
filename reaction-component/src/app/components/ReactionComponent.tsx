@@ -1,7 +1,7 @@
 'use client';
 import React, { useState, useEffect } from 'react';
-import LikesDisplay from './reaction_component/LikesDisplay';
-import PopoverButton from './reaction_component/PopoverButton';
+import LikesDisplay from './reaction/LikesCountDisplayButton';
+import PopoverButton from './reaction/LikeButton';
 import { getReactionCount, createReaction, deleteReaction, hasUserReacted, getReactionEmojis } from '../../../prisma/db_utils';
 import { ReactionEmoji } from '@prisma/client';
 
@@ -15,7 +15,7 @@ const ReactionComponent: React.FC<ReactionComponentProps> = ({ postId, userId })
     const [reactionCount, setReactionCount] = useState<number>(0);
     const [isLiked, setIsLiked] = useState<boolean>(false);
     const [reactionEmojis, setReactionEmojis] = useState<ReactionEmoji[]>([]); 
-    const [isLoading, setIsLoading] = useState<boolean>(true);
+    const [isLoading, setIsLoading] = useState<boolean>(false);
     const [error, setError] = useState<Error | any>(null);
 
 
