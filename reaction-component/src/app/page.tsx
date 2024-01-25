@@ -1,6 +1,6 @@
 import React from 'react';
 import Post from './components/Post';
-import { getAllPosts } from '../../prisma/db_utils';
+import { getAllPosts } from './actions/post';
 import ReactionModal from './components/ReactionModal';
 import PopoverButton from './components/reaction/LikeButton';
 

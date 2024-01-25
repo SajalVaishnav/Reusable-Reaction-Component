@@ -2,7 +2,6 @@ import React from 'react';
 import TitleRibbon from './post/TitleRibbon';
 import PostContent from './post/PostContent';
 import BottomRibbon from './post/BottomRibbon';
-import { PrismaClient } from '@prisma/client';
 
 interface PostProps {
   title: string;

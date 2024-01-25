@@ -1,36 +1,6 @@
 'use server';
-import { PrismaClient, ReactionEmoji } from '@prisma/client';
-import { PostWithUserAndReactionCount,  ReactionWithUserAndReactionEmoji  } from '@/app/types';
+import { ReactionWithUserAndReactionEmoji  } from '@/app/types';
 import prisma from '@/lib/prisma';
-
-// load all posts with user and reaction count
-export async function getAllPosts(): Promise<PostWithUserAndReactionCount[]> {
-    try {
-    const posts = await prisma.post.findMany({
-      include: {
-          user: {
-            select: { username: true, id: true},
-          },
-      },
-      orderBy: {
-        createdAt: 'desc',
-      },
-      take: 10,
-    });
-
-    // map to PostWithUserAndReactionCount
-    const postsWithUserAndReactionCount = posts.map((post) => {
-        return {
-            ...post,
-            user: post.user,
-        };
-    });
-    return postsWithUserAndReactionCount;
-  } catch (error) {
-    console.error('Error fetching posts:', error);
-    throw error; // Re-throw to handle gracefully
-  } 
-}
 
 // given postId load reactions 
 export async function getReactions(postId: number): Promise<ReactionWithUserAndReactionEmoji[]> {
@@ -126,16 +96,5 @@ export async function hasUserReacted(postId: number, userId: number): Promise<bo
     } catch (error) {
         console.error('Error checking user reaction:', error);
         throw error; 
-    } 
-}
-
-// get all reactionEmojis
-export async function getReactionEmojis(): Promise<ReactionEmoji[]> {
-    try {
-        const reactionEmojis = await prisma.reactionEmoji.findMany({});
-        return reactionEmojis;
-    } catch (error) {
-        console.error('Error fetching reactionEmojis:', error);
-        throw error; // Re-throw to handle gracefully
     } 
 }

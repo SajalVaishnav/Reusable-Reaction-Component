@@ -1,2 +1,11 @@
-prisma with supabase
+prisma
+    - https://github.com/prisma/prisma-examples/blob/latest/databases/postgresql-supabase/README.md
+    - https://github.com/prisma/prisma-examples/tree/latest/typescript/rest-nextjs-api-routes
+    - https://supabase.com/partners/integrations/prisma
+    - https://www.prisma.io/docs/orm/prisma-client/queries/crud
+
+server actions
     - 
+
+toggle state (especially loading)
+    - https://bobbyhadz.com/blog/react-toggle-boolean-state

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { getReactions } from '../../../prisma/db_utils';
+import { getReactions } from '../actions/reaction';
 import { Cross2Icon } from '@radix-ui/react-icons'; 
 import Modal from 'react-modal';
 import { formatDate } from '../utils/timestampDisplay';

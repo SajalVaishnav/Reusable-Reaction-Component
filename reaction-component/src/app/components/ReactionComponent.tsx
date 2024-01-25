@@ -2,7 +2,8 @@
 import React, { useState, useEffect } from 'react';
 import LikesDisplay from './reaction/LikesCountDisplayButton';
 import PopoverButton from './reaction/LikeButton';
-import { getReactionCount, createReaction, deleteReaction, hasUserReacted, getReactionEmojis } from '../../../prisma/db_utils';
+import { getReactionCount, createReaction, deleteReaction, hasUserReacted } from '../actions/reaction';
+import { getReactionEmojis } from '../actions/reactionEmoji';
 import { ReactionEmoji } from '@prisma/client';
 
 interface ReactionComponentProps {
