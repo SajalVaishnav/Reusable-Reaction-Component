@@ -38,7 +38,7 @@ const PopoverButton: React.FC<PopoverButtonProps> = ({ isLiked, onLikeClick, emo
                     <div className="emoji-container">
                         {emojis.map((emoji, index) => (
                             <button key={index} className="emoji" onClick={() => handleClick(emoji.id)}>
-                                {emoji.typeDetails}
+                                {emoji.emojiString}
                             </button>
                         ))}
                     </div>

@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import LikesDisplay from './reaction_component/LikesDisplay';
 import PopoverButton from './reaction_component/PopoverButton';
-import { getReactionCount, createReaction, deleteReaction, hasUserReacted, getReactionEmojis } from '@/prisma/db_utils';
+import { getReactionCount, createReaction, deleteReaction, hasUserReacted, getReactionEmojis } from '../../../prisma/db_utils';
 import { ReactionEmoji } from '@prisma/client';
 
 interface ReactionComponentProps {
@@ -17,6 +17,8 @@ const ReactionComponent: React.FC<ReactionComponentProps> = ({ postId, userId })
     const [reactionEmojis, setReactionEmojis] = useState<ReactionEmoji[]>([]); 
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState<Error | any>(null);
+
+
 
     useEffect(() => {
         const fetchState = async () => {

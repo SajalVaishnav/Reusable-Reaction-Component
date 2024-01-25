@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { getReactions } from '@/prisma/db_utils';
-import HeaderIcon from '../../../public/reaction-modal-header.svg';
+import { getReactions } from '../../../prisma/db_utils';
 import { Cross2Icon } from '@radix-ui/react-icons'; 
-import Image from 'next/image';
 import Modal from 'react-modal';
 import { formatDate } from '../utils/timestampDisplay';
 
