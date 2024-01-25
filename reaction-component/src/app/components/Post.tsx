@@ -2,16 +2,18 @@ import React from 'react';
 import TitleRibbon from './post/TitleRibbon';
 import PostContent from './post/PostContent';
 import BottomRibbon from './post/BottomRibbon';
-// import ReactionComponent from './ReactionComponent';
+import { PrismaClient } from '@prisma/client';
 
 interface PostProps {
   title: string;
   content: string;
   author: string;
   createdTime: Date;
+  postId: number;
+  userId: number;
 }
 
-const Post: React.FC<PostProps> = ({ title, content, author, createdTime }) => {
+const Post: React.FC<PostProps> = ({ title, content, author, createdTime, postId, userId}) => {
   const postStyles: React.CSSProperties = {
     display: 'flex',
     width: '562px',
@@ -43,8 +45,7 @@ const Post: React.FC<PostProps> = ({ title, content, author, createdTime }) => {
       <div style={postStyles}>
         <TitleRibbon title={title} />
         <PostContent content={content} />
-        <BottomRibbon username={author} createdAt={createdTime} />
-        {/* <ReactionComponent /> */}
+        <BottomRibbon username={author} createdAt={createdTime} postId={postId} userId={userId}/>
       </div>
     </div>
   );

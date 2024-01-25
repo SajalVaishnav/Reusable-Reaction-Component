@@ -2,8 +2,7 @@
 import { Post, Reaction, User, ReactionEmoji } from '@prisma/client';
 
 export type PostWithUserAndReactionCount = Post & {
-    user: { username: string };
-    _count: { reactions: number };
+    user: { username: string, id: number};
 };
 
 export type ReactionWithUserAndReactionEmoji = Omit<Reaction, "id"> & {

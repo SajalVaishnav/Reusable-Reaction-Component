@@ -1,11 +1,11 @@
 import React from 'react';
 import Post from './components/Post';
 import { getAllPosts } from '@/prisma/db_utils';
-import { PrismaClient } from '@prisma/client';
+import ReactionModal from './components/ReactionModal';
+import PopoverButton from './components/reaction_component/PopoverButton';
 
 export default async function Home() {
-  const prisma = new PrismaClient();
-  const posts = await getAllPosts(prisma);
+  const posts = await getAllPosts();
 
   return (
     <div style={{ paddingTop: '20px' }}>
@@ -17,9 +17,14 @@ export default async function Home() {
             content={post.content}
             author={post.user.username}
             createdTime={post.createdAt}
+            postId={post.id}
+            userId={post.user.id}
           />
         ))}
       </div>
     </div>
   );
+  // return (
+  //   <ReactionModal postId={6} />
+  // );
 };

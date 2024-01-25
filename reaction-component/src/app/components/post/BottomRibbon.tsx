@@ -1,14 +1,17 @@
 import React from 'react';
-import Image from 'next/image'; // Import Image from Next.js
+import Image from 'next/image'; 
 import UsernameAndPostedTime from './bottom_ribbon/UsernameAndPostedTime';
 import CommentIcon from '../../../../public/CommentIcon.svg';
+import ReactionComponent from '../ReactionComponent';
 
 interface BottomRibbonProps {
   username: string;
   createdAt: Date; 
+  postId: number;
+  userId: number;
 }
 
-const BottomRibbon: React.FC<BottomRibbonProps> = ({ username, createdAt }) => {
+const BottomRibbon: React.FC<BottomRibbonProps> = ({ username, createdAt, postId, userId}) => {
   const bottomRibbonContainerStyles: React.CSSProperties = {
     display: 'flex',
     justifyContent: 'space-between',
@@ -51,7 +54,7 @@ const BottomRibbon: React.FC<BottomRibbonProps> = ({ username, createdAt }) => {
           </span>
           <span style={commentTypography}>42 comments</span>
         </span>
-        {/* <ReactionComponent /> */}
+        <ReactionComponent postId={postId} userId={userId}/>
       </span>
     </div>
   );
